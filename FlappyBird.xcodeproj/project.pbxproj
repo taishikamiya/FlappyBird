@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3303BC7924A882F100EB6500 /* coin03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3303BC7824A882F100EB6500 /* coin03.mp3 */; };
 		33FA5A002495D44100451144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FA59FF2495D44100451144 /* AppDelegate.swift */; };
 		33FA5A022495D44100451144 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FA5A012495D44100451144 /* SceneDelegate.swift */; };
 		33FA5A042495D44100451144 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FA5A032495D44100451144 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3303BC7824A882F100EB6500 /* coin03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin03.mp3; sourceTree = "<group>"; };
 		33FA59FC2495D44100451144 /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33FA59FF2495D44100451144 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33FA5A012495D44100451144 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,7 @@
 			children = (
 				33FA59FE2495D44100451144 /* FlappyBird */,
 				33FA59FD2495D44100451144 /* Products */,
+				3303BC7824A882F100EB6500 /* coin03.mp3 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3303BC7924A882F100EB6500 /* coin03.mp3 in Resources */,
 				33FA5A0C2495D44300451144 /* LaunchScreen.storyboard in Resources */,
 				33FA5A092495D44300451144 /* Assets.xcassets in Resources */,
 				33FA5A072495D44100451144 /* Main.storyboard in Resources */,

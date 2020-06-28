@@ -25,7 +25,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //音用
     let itemSound = SKAction.playSoundFileNamed("coin03.mp3", waitForCompletion: false)
-//    let cSound = SKAudioNode.init(fileNamed: "coin03.mp3")
 
     //スコア用
     var score = 0
@@ -37,6 +36,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var itemScore = 0
     var itemScoreLabelNode:SKLabelNode!
     
+    //アイテム生成位置をカベの隙間位置から計算するための一時補完変数
+    var itemGenYCenter: CGFloat = 0.0
+        
     // SKView上にシーンが表示されたときに呼ばれるメソッド
     override func didMove(to view: SKView) {
         
@@ -58,6 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //アイテム用ノード
         itemNode = SKNode()
         scrollNode.addChild(itemNode)
+        
+        //アイテム生成用変数
+        itemGenYCenter = self.frame.height / 2.0
         
         // 各種Spriteを生成する処理をメソッドに分割
         setupGround()
@@ -194,6 +199,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //y軸の下限にランダムな値を足して下の壁のy座標を決定
             let under_wall_y = under_wall_lowest_y + random_y
             
+            //item生成用に変数をコピー
+            self.itemGenYCenter = under_wall_y + (slit_length / 2.0)
+            
             //下側の壁作成
             let under = SKSpriteNode(texture: wallTexture)
             under.position = CGPoint(x:0, y:under_wall_y)
@@ -297,22 +305,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         //下の壁のy軸下限位置
         let groundSize = SKTexture(imageNamed: "ground").size()
-        let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
-        let under_wall_lowest_y = groundSize.height
+        let birdSize = SKTexture(imageNamed: "bird_a").size()
+
+//        let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
+//        let under_wall_lowest_y = groundSize.height
 
         //itemを生成するアクション
         let createItemAnimation = SKAction.run({
             //壁関連のノードを乗せるノードを作成
             let item = SKNode()
-            item.position = CGPoint(x: self.frame.size.width * 0.5, y: self.frame.size.height * 0.5)
+            item.position = CGPoint(x: self.frame.size.width * 0.5, y: self.frame.size.height * 0.0)
             item.zPosition = 20 // 雲より手前、地面より奥
             
             //０〜random_y_rangeまでのランダム値を生成
-            let random_y = CGFloat.random(in: 0..<center_y - under_wall_lowest_y)
-            
+            let random_y = CGFloat.random(in: 0..<birdSize.height * 4) - birdSize.height*2
+
+//            print("y \(random_y)")
+//            print("itemYcenter \(self.itemGenYCenter)")
+
             let genItem = SKSpriteNode(texture: itemTexture)
-            genItem.position = CGPoint(x: 0, y: random_y)
+//            genItem.position = CGPoint(x: 0, y: random_y)
+            genItem.position = CGPoint(x: 0, y: self.frame.height/2.0 + groundSize.height + random_y)
+ //           genItem.position = CGPoint(x: 0, y: self.itemGenYCenter + random_y)
             genItem.zPosition = 20
+//            print("itemY \(self.itemGenYCenter + random_y)")
 
             //Spriteに物理演算する
             genItem.physicsBody = SKPhysicsBody(circleOfRadius: genItem.size.height / 2)
@@ -382,18 +398,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             itemScoreLabelNode.text = "Item Score:\(itemScore)"
             
             //効果音
-            
             itemNode.run(itemSound)
             print("test sound")
-//            self.addChild(cSound)
             
             //消す
-            itemNode.run(SKAction.removeFromParent()) //全消しになっちゃう
-//            self.itemNode.removeFromParent()
-
-//            let removeItem = SKAction.removeFromParent()
-
-  //          itemNode.run(SKAction.sequence([itemSound, removeItem]))
+            contact.bodyB.node?.run(SKAction.removeFromParent())
             
 
         } else { 
